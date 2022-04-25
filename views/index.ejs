@@ -46,7 +46,9 @@
         </div>
       </div>
       <div class="list-schools">
+        <%if(user.isAdmin) {%>
         <div class="new-school"><button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#createSch-modal">Create New School</button></div>
+        <%}%>
         <table id="myTable" class="table table-light table-striped" style="width: 100%;">
           <thead>
             <tr>

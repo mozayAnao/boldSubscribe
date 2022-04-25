@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 const { School, validateSchool } = require('../models/school');
+const validateSubscription = require('../middleware/validateSubscription');
 const admin = require('../middleware/admin');
 const auth = require('../middleware/auth');
 const bcrypt = require('bcrypt');
@@ -40,7 +41,7 @@ router.post('/', [auth, admin, validateSchool], async (req, res) => {
   res.json(school);
 });
 
-router.post('/subscribe', auth, async (req, res) => {
+router.post('/subscribe', validateSubscription, async (req, res) => {
   let school = await School.findOne({ schoolId: req.body.schoolId });
   if (!school) return res.status(400).send('Invalid request');
 
