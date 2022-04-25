@@ -1,0 +1,44 @@
+<%include partials/_headers%>
+
+<body>
+    <div class="main-page">
+        <div class="main-filter">
+            <div class="inner-page">
+                <div class="login-form">
+                    <h2 id="login-header">Bold Subscribe</h2>
+                    <form id="login-form" action="" method="post">
+                        <div class="form-group my-3">
+                            <input class="form-control" type="text" id="username" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group my-3">
+                            <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div>
+                            <input class="btn btn-primary" type="submit" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+                $('#login-form').submit(function (event) {
+                    var formData = {
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                    };
+                    let token = '';
+                    $.post('/auth', formData, function(resp) {
+                        console.log('response: ', resp);
+                        window.localStorage.setItem('jwt', resp);
+
+                        window.location.href = `/home?token=${resp}`;
+                        
+                    })
+                    event.preventDefault();
+                });
+            });
+    </script>
+    <%include partials/_scripts%>
+</body>

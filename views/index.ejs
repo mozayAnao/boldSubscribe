@@ -1,0 +1,211 @@
+<%include partials/_headers%>
+
+<body>
+  <%-include('partials/_navbar', {user: user})-%>
+<div class="main-page">
+  <div class="main-filter">
+    <div class="inner-page">
+      <div class="info-cards">
+        <div class="info" id="total">
+          <div class="title"><h5>Total Number of Schools</h5></div>
+          <div class="result"><h1><%=schools.length%></h1></div>
+        </div>
+        <div class="info" id="full">
+          <div class="title">
+            <h5>Full Module Subscribers</h5>
+          </div>
+          <div class="result">
+            <h1>
+              <%let fullModule = []%>
+              <%schools.forEach((school) => {%>
+                <%if(school.module === 'full') {%>
+                  <%fullModule.push(school);%>
+                  <%}%>
+                  
+                <%})%>
+                <%=fullModule.length%>
+            </h1>
+          </div>
+        </div>
+        <div class="info" id="half">
+          <div class="title">
+            <h5>Half Module Subscribers</h5>
+          </div>
+          <div class="result">
+            <h1>
+              <%let halfModule=[]%>
+                <%schools.forEach((school)=> {%>
+                  <%if(school.module==='half' ) {%>
+                    <%halfModule.push(school);%>
+                      <%}%>
+          
+                        <%})%>
+                          <%=halfModule.length%>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="list-schools">
+        <div class="new-school"><button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#createSch-modal">Create New School</button></div>
+        <table id="myTable" class="table table-light table-striped" style="width: 100%;">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">School</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Module purchased</th>
+              <th scope="col">Days left</th>
+              <th scope="col">Subscription Date</th>
+              <th scope="col">Subscription Password</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%schools.forEach((school, idx) => {%>
+            <tr>
+              <th scope="row"><%-idx + 1%></th>
+              <td><%=school.name%></td>
+              <td>
+                <%=school.phone%>
+              </td>
+              <td>
+                <%=school.module%>
+              </td>
+              <%var present_date=new Date();%>
+                <%var difference=school.subscriptionDate.getTime() - present_date.getTime();%>
+                  <%var days=Math.ceil(difference / (1000 * 3600 * 24));%>
+                  <td>
+                    <%=days%>
+                  </td>
+              <td><%=school.subscriptionDate.toLocaleString("en-GB", { year: 'numeric', month: '2-digit', day: '2-digit' })%></td>
+              <td><%=school.subscriptionPassword%></td>
+              <td>
+                <a href="" type="button" onclick="viewSchool('<%=school._id%>')"><ion-icon name="cog"></ion-icon></a>
+                
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  =====================create school modal interface section here ============== -->
+
+<div class="modal" tabindex="-1" id="createSch-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add School</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+                <form id="create-school" action="" method="post">
+                <div id="form-error"></div>
+                  <div id="id-group" class="form-group my-3">
+                    <input class="form-control" type="text" name="id" id="id" placeholder="School ID" required>
+                  </div>
+                  <div id="name-group" class="form-group my-3">
+                    <input class="form-control" type="text" name="name" id="name" placeholder="School Name" required>
+                  </div>
+                  <div id="phone-group" class="form-group my-3">
+                    <input class="form-control" type="tel" name="phone" id="phone" placeholder="Phone Number" required>
+                  </div>
+                
+                  <div><input type="hidden" id="phoneCode" name="phoneCode"></div>
+                
+                  <div id="module-group" class="form-group my-3">
+                    <select class="form-control" name="module" id="module">
+                      <option value="">Choose a module</option>
+                      <option value="full">Full Module</option>
+                      <option value="half">Half Module</option>
+                    </select>
+                  </div>
+
+                  <div id="subscriptionDate-group" class="form-group my-3">
+                      <input class="form-control" type="date" name="subscriptionDate" id="subscriptionDate"
+                      placeholder="Next Subscription Date" required>
+                  </div>
+
+                  <div>                    
+                    <input class="btn btn-primary" type="submit" value="Save">
+                  </div>
+                </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  =====================update school modal interface section here ============== -->
+
+<div class="modal" tabindex="-1" id="updateSch-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update School</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="update-school" action="" method="post">
+          <input type="hidden" name="_id" id="_id">
+          <div id="update-form-error"></div>
+          <div id="id-group" class="form-group my-3">
+            <input class="form-control" type="text" name="id" id="updateid" placeholder="School ID" required>
+          </div>
+          <div id="name-group" class="form-group my-3">
+            <input class="form-control" type="text" name="name" id="updatename" placeholder="School Name" required>
+          </div>
+          <div id="phone-group" class="form-group my-3">
+            <input class="form-control" type="tel" name="phone" id="updatephone" placeholder="Phone Number" required>
+          </div>
+
+          <div><input type="hidden" id="phoneCode" name="phoneCode"></div>
+
+          <div id="module-group" class="form-group my-3">
+            <select class="form-control" name="module" id="updatemodule">
+              <option value="">Choose a module</option>
+              <option value="full">Full Module</option>
+              <option value="half">Half Module</option>
+            </select>
+          </div>
+
+          <label class="form-label" for="" id="date-label"></label>
+
+          
+
+          <div id="subscriptionDate-group" class="form-group my-3">
+            <label for="subscriptionDate" class="form-label">Set Next Subscription Date</label>
+            <input class="form-control" type="date" name="subscriptionDate" id="updatesubscriptionDate"
+              placeholder="Next Subscription Date" required>
+          </div>
+
+          <button type="button" class="btn btn-primary" onclick="generatePassword()">Generate Password</button>
+
+          <button type="button" class="btn btn-primary" onclick="copyPassword()">Copy Password</button>
+
+          <div id="subscriptionPassword-group" class="form-group my-3">
+            <input class="form-control" type="text" name="subscriptionPassword" id="subscriptionPassword"
+              placeholder="Subscription Password" required>
+          </div>
+
+          <div>
+            <input class="btn btn-primary" type="submit" value="Save">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+  <%include partials/_scripts%>
+</body>
+</html>

@@ -1,0 +1,121 @@
+body {
+  padding: 0;
+  margin: 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.main-page {
+  width: 100%;
+  min-height: 90vh;
+  background-image: url('/images/logo/boldtechlogo2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.main-filter {
+  width: 100%;
+  min-height: 90vh;
+  background-color: rgba(255,
+  255,
+  255,
+  0.7);
+  margin: 0;
+  padding: 0 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inner-page {
+  height: 100%;
+  width: 100%;
+  margin: 0 80px;
+  padding: 0 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-cards {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.info {
+  width: 30%;
+  min-height: 150px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+#total {
+  background-color: #6AB187;
+}
+
+#full {
+  background-color: #488A99;
+}
+
+#half {
+  background-color: #1C4E80;
+}
+
+.title {
+  height: 20%;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.result {
+  height: 80%;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.list-schools {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.new-school {
+  margin: 20px 0;
+}
+
+
+.login-form {
+  margin-top: 200px;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,
+    255,
+    255,
+    0.9);
+}
+
+#login-header {
+  color: blue;
+}
+
+.btn {
+  background-color: #0091d5;
+  columns: #ffffff;
+  outline: none;
+  border: none;
+}
