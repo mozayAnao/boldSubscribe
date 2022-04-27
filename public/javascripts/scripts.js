@@ -40,7 +40,7 @@ $(document).ready(function () {
   $('#create-school').submit(function (event) {
     var formData = {
       schoolId: $('#id').val(),
-      name: $('#name').val(),
+      name: $('#school-name').val(),
       phone: $('#phone').val(),
       module: $('#module').val(),
       subscriptionDate: $('#subscriptionDate').val(),
@@ -54,12 +54,9 @@ $(document).ready(function () {
       encode: true,
     })
       .done(function (data) {
-        console.log(data);
-
         $('#form-error').html(`<div class="alert alert-success">Success</div>`);
       })
       .fail(function (error) {
-        console.log(error);
         $('#form-error').html(
           `<div class="alert alert-danger">${error.responseText}</div>`
         );
@@ -90,14 +87,11 @@ $(document).ready(function () {
       encode: true,
     })
       .done(function (data) {
-        console.log(data);
-
         $('#update-form-error').html(
           `<div class="alert alert-success">Success</div>`
         );
       })
       .fail(function (error) {
-        console.log(error);
         $('#update-form-error').html(
           `<div class="alert alert-danger">${error.responseText}</div>`
         );
@@ -124,13 +118,44 @@ $(document).ready(function () {
       encode: true,
     })
       .done(function (data) {
-        console.log(data);
-
         $('#form-error').html(`<div class="alert alert-success">Success</div>`);
       })
       .fail(function (error) {
-        console.log(error);
         $('#form-error').html(
+          `<div class="alert alert-danger">${error.responseText}</div>`
+        );
+      });
+
+    event.preventDefault();
+  });
+});
+
+$(document).ready(function () {
+  $('#change-password').submit(function (event) {
+    var formData = {
+      oldPassword: $('#old-password').val(),
+      newPassword: $('#new-password').val(),
+      repeatPassword: $('#repeat-password').val(),
+    };
+
+    if (formData.newPassword !== formData.repeatPassword) {
+      return;
+    }
+
+    $.ajax({
+      type: 'PUT',
+      url: `http://localhost:3000/users/me`,
+      data: formData,
+      dataType: 'json',
+      encode: true,
+    })
+      .done(function (data) {
+        $('#alert-success').html(
+          `<div class="alert alert-success">Success</div>`
+        );
+      })
+      .fail(function (error) {
+        $('#alert-danger').html(
           `<div class="alert alert-danger">${error.responseText}</div>`
         );
       });
@@ -200,4 +225,23 @@ function logout() {
 
 function addUser() {
   $('#addUser-modal').modal('show');
+}
+
+function changePassword() {
+  $('#changePassword-modal').modal('show');
+}
+
+function checkPassword() {
+  let password1 = $('#new-password').val();
+  let password2 = $('#repeat-password').val();
+
+  if (password1 == password2) {
+    $('#match').show();
+    $('#no-match').hide();
+    $('#cp-btn').attr('disabled', false);
+  } else {
+    $('#no-match').show();
+    $('#match').hide();
+    $('#cp-btn').attr('disabled', 'disabled');
+  }
 }

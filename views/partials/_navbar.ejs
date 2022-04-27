@@ -14,25 +14,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="payments">Payments</a>
                 </li>
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <b>
-                            <%=user.username%>
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <%if(user.isAdmin) {%>
-                            <li><a class="dropdown-item" href="#" type="button" onclick="addUser()">Add User</a></li>
-                            <%}%>
-                        <li><a class="dropdown-item" href="#">My profile</a></li>
-                        <li><a class="dropdown-item" href="#">Change password</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#" type="button" onclick="logout()">Logout</a></li>
-                    </ul>
-                </li> -->
+                
             </ul>
         </div>
 
@@ -49,9 +31,8 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <%if(user.isAdmin) {%>
                             <li><a class="dropdown-item" href="#" type="button" onclick="addUser()">Add User</a></li>
-                            <%}%>
-                                <li><a class="dropdown-item" href="#">My profile</a></li>
-                                <li><a class="dropdown-item" href="#">Change password</a></li>
+                            <%}%>                                
+                                <li><a class="dropdown-item" href="#" type="button" onclick="changePassword()">Change password</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -102,6 +83,50 @@
 
                     <div>
                         <input class="btn btn-primary" type="submit" value="Save">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  =====================Change password modal interface section here ============== -->
+
+<div class="modal" tabindex="-1" id="changePassword-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="change-password" action="" method="post">
+                    <div id="alert-success" class="alert-success"></div>
+                    <div id="alert-danger" class="alert-danger"></div>
+
+                    <div id="name-group" class="form-group my-3">
+                        <input class="form-control" type="text" name="old-password" id="old-password" placeholder="Old Password" required>
+                    </div>
+                    <div id="username-group" class="form-group my-3">
+                        <input class="form-control" type="password" name="new-password" id="new-password" placeholder="New Password"
+                            required>
+                    </div>
+
+                    <div id="password-group" class="form-group my-3">
+                        <input class="form-control" type="password" name="repeat-password" id="repeat-password" placeholder="Repeat Password"
+                            required onkeyup="checkPassword()">
+                        <span id="match" class="alert-success" style="display: none; font-size: 12px;"><p>Match</p></span>
+                        <span id="no-match" class="alert-danger" style="display: none; font-size: 12px;">
+                            <p>Passwords do not match</p>
+                        </span>
+                    </div>                    
+
+                    <div>
+                        <input id="cp-btn" class="btn btn-primary" type="submit" value="Save">
                     </div>
                 </form>
             </div>

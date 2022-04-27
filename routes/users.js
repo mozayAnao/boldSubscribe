@@ -38,6 +38,30 @@ router.post('/', [auth, admin, validateUser], async (req, res) => {
   res.send(_.pick(user, ['name', 'username', 'isAdmin']));
 });
 
+router.put('/me', auth, async (req, res) => {
+  let user = await User.findById(req.user._id);
+  if (!user)
+    return res.status(404).send('The user with the given ID does not exist');
+
+  const validPassword = await bcrypt.compare(
+    req.body.oldPassword,
+    user.password
+  );
+  if (!validPassword) return res.status(400).send('Invalid password');
+
+  const salt = await bcrypt.genSalt(10);
+  req.body.newPassword = await bcrypt.hash(req.body.newPassword, salt);
+
+  await User.updateOne(
+    { _id: user._id },
+    {
+      password: req.body.newPassword,
+    }
+  );
+
+  res.send(_.pick(user, ['name', 'username', 'isAdmin']));
+});
+
 router.delete('/:id', [auth, admin], async (req, res) => {
   const user = await User.findByIdAndDelete(req.params.id);
   if (!user)

@@ -8,7 +8,7 @@ const validateAuth = async (req, res, next) => {
 
     password: Joi.string()
       .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-      .min(5)
+      .min(4)
       .max(255)
       .required(),
   });
