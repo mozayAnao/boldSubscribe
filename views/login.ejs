@@ -24,6 +24,11 @@
     </div>
     <script>
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'x-auth-token': window.localStorage.jwt,
+                },
+            });
                 $('#login-form').submit(function (event) {
                     var formData = {
                         username: $('#username').val(),
@@ -31,10 +36,13 @@
                     };
                     let token = '';
                     $.post('/auth', formData, function(resp) {
-                        console.log('response: ', resp);
                         window.localStorage.setItem('jwt', resp);
 
                         window.location.href = `/home?token=${resp}`;
+                        // $.get('/home', function(resp) {
+                        //     console.log(resp);
+                        //     $('body').html(resp);
+                        // })
                         
                     }).fail(function(error) {
                         console.log(error);
@@ -47,5 +55,4 @@
                 });
             });
     </script>
-    <%include partials/_scripts%>
 </body>

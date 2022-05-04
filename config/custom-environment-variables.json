@@ -1,3 +1,4 @@
 {
-    "jwtPrivateKey": "bold_jwtPrivateKey"
+    "jwtPrivateKey": "bold_jwtPrivateKey",
+    "dbConnectionString-Prod": "bold_dbConnectionString"
 }

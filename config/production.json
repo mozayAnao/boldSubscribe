@@ -1,0 +1,5 @@
+{
+    "name": "BoldSmisSubscribe-Development",
+    "dbConnectionString-Prod": "",
+     "jwtPrivateKey": ""
+}
