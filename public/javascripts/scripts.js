@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:3000/schools',
+      url: '/schools',
       data: formData,
       dataType: 'json',
       encode: true,
@@ -81,7 +81,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'PUT',
-      url: `http://localhost:3000/schools/${id}`,
+      url: `/schools/${id}`,
       data: formData,
       dataType: 'json',
       encode: true,
@@ -112,7 +112,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'POST',
-      url: `http://localhost:3000/users`,
+      url: `/users`,
       data: formData,
       dataType: 'json',
       encode: true,
@@ -144,7 +144,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: 'PUT',
-      url: `http://localhost:3000/users/me`,
+      url: `/users/me`,
       data: formData,
       dataType: 'json',
       encode: true,
