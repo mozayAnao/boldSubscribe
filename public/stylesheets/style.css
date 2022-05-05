@@ -134,3 +134,16 @@ a {
   outline: none;
   border: none;
 }
+
+@media screen and (min-width: 280px) {
+  .main-filter {
+    padding: 0 5px;
+  }
+  .inner-page {
+    margin: 0;
+    padding: 0;
+  }
+  .title h5 {
+    font-size: 12px;
+  }
+}
