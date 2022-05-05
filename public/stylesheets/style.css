@@ -147,3 +147,18 @@ a {
     font-size: 12px;
   }
 }
+
+@media screen and (min-width: 1080px) {
+  .main-filter {
+  padding: 0 100px;;
+  }
+
+  .inner-page {
+    margin: 0 80px;
+    padding: 0 130px;
+  }
+
+  .title h5 {
+    font-size: 15px;
+  }
+}
