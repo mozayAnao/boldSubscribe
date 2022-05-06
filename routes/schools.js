@@ -6,6 +6,7 @@ const validateSubscription = require('../middleware/validateSubscription');
 const admin = require('../middleware/admin');
 const auth = require('../middleware/auth');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 
 router.get('/', auth, async (req, res) => {
   const schools = await School.find();
@@ -41,7 +42,7 @@ router.post('/', [auth, admin, validateSchool], async (req, res) => {
   res.json(school);
 });
 
-router.post('/subscribe', validateSubscription, async (req, res) => {
+router.post('/subscribe', [cors(), validateSubscription], async (req, res) => {
   let school = await School.findOne({ schoolId: req.body.schoolId });
   if (!school) return res.status(400).send('Invalid request');
 
