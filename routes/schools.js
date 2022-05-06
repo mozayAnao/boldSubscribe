@@ -46,7 +46,7 @@ router.post('/subscribe', validateSubscription, async (req, res) => {
   if (!school) return res.status(400).send('Invalid request');
 
   if (req.body.password !== school.subscriptionPassword)
-    return res.status(400).send('Invalid request');
+    return res.status(400).json({ subscribed: false });
 
   school.subscriptionPassword = '';
 
