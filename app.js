@@ -6,6 +6,7 @@ const cors = require('cors');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const config = require('config');
+const helmet = require('helmet');
 
 var app = express();
 
@@ -42,6 +43,7 @@ const authRouter = require('./routes/auth');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(helmet());
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
