@@ -46,6 +46,7 @@ app.set('view engine', 'ejs');
 app.use(
   helmet({
     contentSecurityPolicy: false,
+    crossOriginResourcePolicy: 'cross-origin',
   })
 );
 app.use(cors());
